@@ -1,0 +1,13 @@
+{
+  "id": "call_demo_001",
+  "messages": [
+    { "role": "assistant", "message": "Hello?" },
+    { "role": "user", "message": "Yeah hi, who's this?" },
+    { "role": "assistant", "message": "It's Leon over at Core Dispatch. We make sure missed calls still get answered. How are you handling calls when you're out on a job right now?" },
+    { "role": "user", "message": "Honestly? Half of them just go to voicemail and never call back." },
+    { "role": "assistant", "message": "Yeah, that's the exact thing we fix. How much is a new customer usually worth to you?" },
+    { "role": "user", "message": "A good job is a couple hundred bucks easy. How much does this cost?" },
+    { "role": "assistant", "message": "A hundred forty nine a month, no contract. Want me to get you set up?" },
+    { "role": "user", "message": "Yeah let's do it. Can you call me back tomorrow morning to walk through it?" }
+  ]
+}
