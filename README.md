@@ -2,6 +2,7 @@
 
 **Outcome analytics and quality scoring for AI voice-agent calls.** Point it at your transcripts and get back what actually happened: did the call reach a human, hit a voicemail, or die in an IVR menu? Did the customer object, ask about price, or book? How good was the conversation, on a 0 to 100 scale?
 
+[![CI](https://github.com/redzicdenis08-afk/callscope/actions/workflows/ci.yml/badge.svg)](https://github.com/redzicdenis08-afk/callscope/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Python 3.9+](https://img.shields.io/badge/python-3.9%2B-blue.svg)](https://www.python.org/)
 [![Code style: ruff](https://img.shields.io/badge/code%20style-ruff-000000.svg)](https://github.com/astral-sh/ruff)
@@ -78,6 +79,24 @@ Roles normalize automatically: `assistant` / `bot` / `ai` map to *agent*, and `u
 ## How scoring works
 
 Each call starts from a base score set by its outcome (a reached human is worth more than a voicemail), then adjusts from there: bookings and pricing talk push it up, objections and do-not-call requests pull it down, and a balanced two-sided conversation earns a bonus. The whole heuristic is about 20 lines and lives in [`callscope/analyzer.py`](callscope/analyzer.py), kept deliberately simple so you can read and tune it.
+
+```mermaid
+graph TD
+    A[Raw Transcript] --> B[Parser: VAPI / Twilio / Text]
+    B --> C[Outcome Classifier]
+    C -->|Human Reached| D["Base Score: 50"]
+    C -->|Voicemail| E["Base Score: 10"]
+    C -->|IVR / Menu| F["Base Score: 15"]
+    C -->|No Answer| G["Base Score: 0"]
+    D & E & F & G --> H[Signal Scanner]
+    H -->|Appointment Booked| I["Score +50"]
+    H -->|Price Discussed| J["Score +15"]
+    H -->|Callback Requested| K["Score +10"]
+    H -->|Objection Raised| L["Score -10"]
+    H -->|Do Not Call DNC| M["Score -40"]
+    H -->|Talk Ratio Bonus| N["Score +10"]
+    I & J & K & L & M & N --> O["Final Score (0 - 100)"]
+```
 
 ## Customize the detectors
 
