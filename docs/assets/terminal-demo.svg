@@ -1,0 +1,15 @@
+﻿<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="520" viewBox="0 0 1100 520" role="img" aria-label="callscope terminal demo">
+  <rect width="1100" height="520" rx="28" fill="#0d1117"/>
+  <rect x="32" y="32" width="1036" height="456" rx="18" fill="#111827" stroke="#30363d"/>
+  <circle cx="68" cy="62" r="9" fill="#ff5f56"/>
+  <circle cx="98" cy="62" r="9" fill="#ffbd2e"/>
+  <circle cx="128" cy="62" r="9" fill="#27c93f"/>
+  <text x="56" y="115" fill="#9ca3af" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="26">$ python -m callscope analyze examples --csv report.csv</text>
+  <text x="56" y="170" fill="#e5e7eb" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="25">CALL            OUTCOME         SCORE  EVENTS</text>
+  <text x="56" y="210" fill="#6b7280" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="25">------------------------------------------------</text>
+  <text x="56" y="250" fill="#ffffff" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="25">call_demo_001   human_reached     100  price, booked, callback</text>
+  <text x="56" y="290" fill="#ffffff" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="25">sample_plain    voicemail          12  -</text>
+  <text x="56" y="330" fill="#6b7280" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="25">------------------------------------------------</text>
+  <text x="56" y="375" fill="#34d399" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="27">2 calls | 1 human reached | 1 booked | avg score 56.0</text>
+  <text x="56" y="430" fill="#93c5fd" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="25">offline voice-agent QA, benchmark included, zero runtime deps</text>
+</svg>

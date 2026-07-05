@@ -1,0 +1,11 @@
+﻿<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="640" viewBox="0 0 1280 640" role="img" aria-label="callscope social preview">
+  <rect width="1280" height="640" fill="#0d1117"/>
+  <rect x="70" y="70" width="1140" height="500" rx="36" fill="#111827" stroke="#30363d" stroke-width="3"/>
+  <text x="110" y="165" fill="#f9fafb" font-family="Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, sans-serif" font-size="86" font-weight="800">callscope</text>
+  <text x="116" y="230" fill="#93c5fd" font-family="Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, sans-serif" font-size="34" font-weight="700">Offline QA for AI voice-agent transcripts</text>
+  <text x="116" y="310" fill="#e5e7eb" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="31">human_reached  voicemail  ivr  no_answer</text>
+  <text x="116" y="365" fill="#34d399" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="31">booking signals + price talk + objections + scores</text>
+  <rect x="116" y="420" width="470" height="76" rx="18" fill="#1f2937" stroke="#374151"/>
+  <text x="145" y="470" fill="#ffffff" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="28">20/20 benchmark passing</text>
+  <text x="116" y="545" fill="#9ca3af" font-family="Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, sans-serif" font-size="28">Zero runtime dependencies. Fictional examples. CSV + JSONL exports.</text>
+</svg>

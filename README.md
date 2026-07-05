@@ -3,12 +3,17 @@
 **Outcome analytics and quality scoring for AI voice-agent calls.** Point it at your transcripts and get back what actually happened: did the call reach a human, hit a voicemail, or die in an IVR menu? Did the customer object, ask about price, or book? How good was the conversation, on a 0 to 100 scale?
 
 [![CI](https://github.com/redzicdenis08-afk/callscope/actions/workflows/ci.yml/badge.svg)](https://github.com/redzicdenis08-afk/callscope/actions/workflows/ci.yml)
+[![Launch Ready](https://github.com/redzicdenis08-afk/callscope/actions/workflows/launch-ready.yml/badge.svg)](https://github.com/redzicdenis08-afk/callscope/actions/workflows/launch-ready.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Python 3.9+](https://img.shields.io/badge/python-3.9%2B-blue.svg)](https://www.python.org/)
 [![Code style: ruff](https://img.shields.io/badge/code%20style-ruff-000000.svg)](https://github.com/astral-sh/ruff)
 [![PRs welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
 
 Built for teams running outbound or inbound AI voice agents (VAPI, Retell, Bland, Twilio, or anything that produces a transcript). Stop eyeballing thousands of calls one by one. Score them.
+
+![terminal demo](docs/assets/terminal-demo.svg)
+
+**Offline transcript QA with CSV exports and a public benchmark.**
 
 ---
 
@@ -132,6 +137,7 @@ Benchmark docs live in [docs/BENCHMARK.md](docs/BENCHMARK.md), and the expansion
 - [ ] Native Retell and Bland parsers
 - [x] Batch directory + CSV export
 - [ ] Per-agent and per-campaign rollups
+- [x] Public benchmark runner
 - [ ] Configurable scoring weights via YAML
 
 ## Contributing
@@ -156,4 +162,4 @@ This repo now includes GitHub issue templates, a PR checklist, Dependabot checks
 
 ## License
 
-[MIT](LICENSE) Ãƒâ€šÃ‚Â© Denis Redzic
+[MIT](LICENSE) ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â© Denis Redzic
