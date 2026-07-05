@@ -74,13 +74,39 @@ def test_parse_roundtrip_and_metrics():
     assert r.metrics["turns"] >= 1
 
 
+
+def test_cli_exports_csv_and_jsonl(tmp_path):
+    from callscope.cli import main
+
+    transcript = tmp_path / "call_001.txt"
+    transcript.write_text(
+        "Agent: Hi, can I help?\nCustomer: Yes, how much does it cost?\n",
+        encoding="utf-8",
+    )
+    csv_path = tmp_path / "report.csv"
+    jsonl_path = tmp_path / "report.jsonl"
+
+    code = main(["analyze", str(tmp_path), "--csv", str(csv_path), "--jsonl", str(jsonl_path)])
+
+    assert code == 0
+    assert "call_id,outcome,score,events" in csv_path.read_text(encoding="utf-8")
+    assert "price_discussed" in csv_path.read_text(encoding="utf-8")
+    assert jsonl_path.read_text(encoding="utf-8").count("\n") == 1
+
+
 def _run() -> None:
     fns = sorted(
         (v for k, v in globals().items() if k.startswith("test_") and callable(v)),
         key=lambda f: f.__name__,
     )
     for fn in fns:
-        fn()
+        if fn.__name__.endswith("csv_and_jsonl"):
+            import tempfile
+            from pathlib import Path
+            with tempfile.TemporaryDirectory() as d:
+                fn(Path(d))
+        else:
+            fn()
         print(f"ok  {fn.__name__}")
     print(f"\n{len(fns)}/{len(fns)} passed")
 

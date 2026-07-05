@@ -30,7 +30,7 @@ pip install callscope     # from PyPI (coming soon)
 ### CLI
 
 ```bash
-callscope analyze examples/*.json examples/*.txt
+python -m callscope analyze examples --csv report.csv --jsonl report.jsonl
 ```
 
 ```
@@ -67,6 +67,10 @@ report.metrics   # {"turns": 8, "customer_turns": 4, "customer_talk_ratio": 0.41
 **Events** (judged from what the customer said): `appointment_booked`, `price_discussed`, `callback_requested`, `objection`, `dnc` (do-not-call request).
 
 **Metrics:** turn count, customer turn count, agent / customer word counts, and customer talk ratio.
+
+## Batch exports
+
+Analyze folders and export summaries with `--csv` or `--jsonl`. See [docs/EXPORTS.md](docs/EXPORTS.md).
 
 ## Supported formats
 
@@ -112,11 +116,15 @@ pack.objection += _compile([r"\bwe already have a guy\b"])
 report = analyze(transcript, pack=pack)
 ```
 
+## Public benchmark
+
+The fictional QA benchmark plan lives in [docs/VOICE_AGENT_QA_BENCHMARK.md](docs/VOICE_AGENT_QA_BENCHMARK.md).
+
 ## Roadmap
 
 - [ ] Optional LLM mode (bring-your-own-key) for nuanced intent and sentiment
 - [ ] Native Retell and Bland parsers
-- [ ] Batch directory + CSV export
+- [x] Batch directory + CSV export
 - [ ] Per-agent and per-campaign rollups
 - [ ] Configurable scoring weights via YAML
 
@@ -142,4 +150,4 @@ This repo now includes GitHub issue templates, a PR checklist, Dependabot checks
 
 ## License
 
-[MIT](LICENSE) © Denis Redzic
+[MIT](LICENSE) Ã‚Â© Denis Redzic
