@@ -94,13 +94,24 @@ def test_cli_exports_csv_and_jsonl(tmp_path):
     assert jsonl_path.read_text(encoding="utf-8").count("\n") == 1
 
 
+def test_benchmark_command(tmp_path):
+    from callscope.cli import main
+
+    bench = tmp_path / "bench.jsonl"
+    bench.write_text(
+        '{"id":"case_1","format":"text","transcript":"Agent: Hi\\nCustomer: How much does it cost?","expected_outcome":"human_reached","expected_events":["price_discussed"]}' + "\n",
+        encoding="utf-8",
+    )
+
+    assert main(["benchmark", str(bench)]) == 0
+
 def _run() -> None:
     fns = sorted(
         (v for k, v in globals().items() if k.startswith("test_") and callable(v)),
         key=lambda f: f.__name__,
     )
     for fn in fns:
-        if fn.__name__.endswith("csv_and_jsonl"):
+        if fn.__name__.endswith("csv_and_jsonl") or fn.__name__.endswith("benchmark_command"):
             import tempfile
             from pathlib import Path
             with tempfile.TemporaryDirectory() as d:

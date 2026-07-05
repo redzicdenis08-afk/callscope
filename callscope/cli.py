@@ -6,7 +6,7 @@ import csv
 import json
 import sys
 from pathlib import Path
-from typing import Iterable, List, Optional
+from typing import Any, Dict, Iterable, List, Optional, Set
 
 from callscope.analyzer import analyze
 from callscope.models import CallReport
@@ -101,6 +101,78 @@ def _print_summary(reports: List[CallReport]) -> None:
         print(f"{n} call(s) | {human} reached a human | {booked} booked | avg score {avg}")
 
 
+def _read_jsonl(path: Path) -> List[Dict[str, Any]]:
+    cases: List[Dict[str, Any]] = []
+    for line_no, line in enumerate(path.read_text(encoding="utf-8-sig").splitlines(), start=1):
+        line = line.strip()
+        if not line or line.startswith("#"):
+            continue
+        try:
+            item = json.loads(line)
+        except json.JSONDecodeError as exc:
+            raise ValueError(f"{path}:{line_no}: invalid JSONL: {exc}") from exc
+        if not isinstance(item, dict):
+            raise ValueError(f"{path}:{line_no}: expected an object")
+        cases.append(item)
+    return cases
+
+
+def _case_transcript(case: Dict[str, Any]) -> Any:
+    if "transcript" in case:
+        return case["transcript"]
+    if "messages" in case:
+        return {"id": case.get("id"), "messages": case["messages"]}
+    raise ValueError(f"benchmark case {case.get('id', '<missing id>')} needs transcript or messages")
+
+
+def _run_benchmark(path: Path) -> int:
+    cases = _read_jsonl(path)
+    rows: List[Dict[str, Any]] = []
+    failures = 0
+    total_expected_events = 0
+    hit_expected_events = 0
+
+    for i, case in enumerate(cases, start=1):
+        case_id = str(case.get("id") or f"case_{i:03d}")
+        expected_outcome = str(case["expected_outcome"])
+        expected_events: Set[str] = set(case.get("expected_events", []))
+        report = analyze(_case_transcript(case), fmt=str(case.get("format", "auto")))
+        actual_events = set(report.events)
+        missing_events = sorted(expected_events - actual_events)
+        outcome_ok = report.outcome == expected_outcome
+        event_ok = not missing_events
+        status = "ok" if outcome_ok and event_ok else "fail"
+        if status == "fail":
+            failures += 1
+        total_expected_events += len(expected_events)
+        hit_expected_events += len(expected_events & actual_events)
+        rows.append(
+            {
+                "id": case_id,
+                "expected": expected_outcome,
+                "actual": report.outcome,
+                "score": report.score,
+                "events": ",".join(report.events) or "-",
+                "missing": ",".join(missing_events) or "-",
+                "status": status,
+            }
+        )
+
+    width = max((len(r["id"]) for r in rows), default=4)
+    print(f"{'CASE'.ljust(width)}  EXPECTED       ACTUAL         SCORE  STATUS  MISSING")
+    print("-" * (width + 58))
+    for r in rows:
+        print(
+            f"{r['id'].ljust(width)}  {r['expected'].ljust(13)}  "
+            f"{r['actual'].ljust(13)}  {str(r['score']).rjust(5)}  {r['status'].ljust(6)}  {r['missing']}"
+        )
+    passed = len(rows) - failures
+    event_rate = round(hit_expected_events / total_expected_events, 3) if total_expected_events else 1.0
+    print("-" * (width + 58))
+    print(f"{passed}/{len(rows)} cases passed | expected-event recall {event_rate}")
+    return 0 if failures == 0 else 1
+
+
 def main(argv: Optional[List[str]] = None) -> int:
     parser = argparse.ArgumentParser(
         prog="callscope",
@@ -113,6 +185,9 @@ def main(argv: Optional[List[str]] = None) -> int:
     a.add_argument("--out", type=Path, help="Write the full JSON report to this path.")
     a.add_argument("--csv", type=Path, help="Write a spreadsheet-friendly CSV summary.")
     a.add_argument("--jsonl", type=Path, help="Write one JSON report per line.")
+
+    b = sub.add_parser("benchmark", help="Run a JSONL benchmark of expected outcomes and events.")
+    b.add_argument("path", type=Path, help="JSONL benchmark file.")
     args = parser.parse_args(argv)
 
     if args.command == "analyze":
@@ -128,6 +203,8 @@ def main(argv: Optional[List[str]] = None) -> int:
             _write_jsonl(reports, args.jsonl)
             print(f"Wrote {len(reports)} JSONL row(s) to {args.jsonl}")
         return 0
+    if args.command == "benchmark":
+        return _run_benchmark(args.path)
     return 1
 
 

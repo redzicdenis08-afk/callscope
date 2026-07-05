@@ -118,7 +118,13 @@ report = analyze(transcript, pack=pack)
 
 ## Public benchmark
 
-The fictional QA benchmark plan lives in [docs/VOICE_AGENT_QA_BENCHMARK.md](docs/VOICE_AGENT_QA_BENCHMARK.md).
+Run the bundled seed benchmark with:
+
+```bash
+python -m callscope benchmark benchmark/calls.jsonl
+```
+
+Benchmark docs live in [docs/BENCHMARK.md](docs/BENCHMARK.md), and the expansion plan lives in [docs/VOICE_AGENT_QA_BENCHMARK.md](docs/VOICE_AGENT_QA_BENCHMARK.md).
 
 ## Roadmap
 
@@ -150,4 +156,4 @@ This repo now includes GitHub issue templates, a PR checklist, Dependabot checks
 
 ## License
 
-[MIT](LICENSE) Ã‚Â© Denis Redzic
+[MIT](LICENSE) Ãƒâ€šÃ‚Â© Denis Redzic
