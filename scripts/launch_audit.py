@@ -1,4 +1,4 @@
-﻿"""Launch-readiness audit for callscope."""
+"""Launch-readiness audit for callscope."""
 from __future__ import annotations
 
 import json
@@ -56,9 +56,15 @@ def main() -> int:
         "docs/BENCHMARK.md",
         "docs/EXPORTS.md",
         "docs/assets/terminal-demo.svg",
+        "docs/FINAL_LAUNCH_CHECKLIST.md",
+        "docs/LAUNCH_POSTS.md",
         "Star this repo if",
     ])
     has("docs/GITHUB_SETUP.md", ["voice-ai", "call-analytics", "vapi", "retell", "twilio"])
+    has("docs/FINAL_LAUNCH_CHECKLIST.md", ["Manual one-time setup", "social-preview.png", "Pin `callscope` first"])
+    has("docs/LAUNCH_POSTS.md", ["Show HN", "Reddit", "LinkedIn", "X"])
+    if not (ROOT / "docs/assets/social-preview.png").exists():
+        fail("missing docs/assets/social-preview.png")
     has(".github/workflows/launch-ready.yml", ["schedule:", "python -m callscope benchmark benchmark/calls.jsonl", "python scripts/launch_audit.py"])
     cases = count_jsonl("benchmark/calls.jsonl")
     if cases < 20:

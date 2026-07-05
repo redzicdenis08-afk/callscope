@@ -26,8 +26,8 @@ Zero runtime dependencies. Pure standard library. Runs offline. Bring your own L
 ## Install
 
 ```bash
-pip install -e .          # from source
-pip install callscope     # from PyPI (coming soon)
+pip install -e .
+pip install git+https://github.com/redzicdenis08-afk/callscope.git
 ```
 
 ## Quickstart
@@ -155,6 +155,9 @@ A short demo plan for launch screenshots and GIFs lives in [docs/DEMO.md](docs/D
 - You care about readable implementation details, not just screenshots.
 
 Launch notes and topic suggestions live in [docs/LAUNCH_PACK.md](docs/LAUNCH_PACK.md).
+
+Final setup checklist: [docs/FINAL_LAUNCH_CHECKLIST.md](docs/FINAL_LAUNCH_CHECKLIST.md).
+Launch post drafts: [docs/LAUNCH_POSTS.md](docs/LAUNCH_POSTS.md).
 
 ## Repository health
 
