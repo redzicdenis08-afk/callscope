@@ -1,6 +1,7 @@
 # Repository Health
 
 **Project:** callscope
+**Last Verified:** July 2026
 
 **Type:** Python transcript analytics library
 
