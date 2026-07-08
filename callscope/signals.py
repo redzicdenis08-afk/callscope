@@ -1,4 +1,4 @@
-"""Keyword / regex signal packs used to classify transcripts.
+﻿"""Keyword / regex signal packs used to classify transcripts.
 
 Everything here is intentionally simple and overridable. Build your own
 :class:`SignalPack` and pass it to ``analyze`` to tune detection for your
@@ -30,7 +30,7 @@ VOICEMAIL = [
 
 IVR = [
     r"\bpress \d\b",
-    r"\bpara espa(?:ñ|n)ol\b",
+    r"\bpara espa(?:Ã±|n)ol\b",
     r"\bfor (?:sales|support|billing|new customers)[,]? press\b",
     r"\bmain menu\b",
     r"\byour call (?:is|may be) (?:important|recorded|monitored)\b",
@@ -89,6 +89,8 @@ class SignalPack:
     booking: List[Pattern] = field(default_factory=lambda: _compile(BOOKING))
     price: List[Pattern] = field(default_factory=lambda: _compile(PRICE))
     callback: List[Pattern] = field(default_factory=lambda: _compile(CALLBACK))
+    hesitation: List[Pattern] = field(default_factory=lambda: _compile(HESITATION))
+    urgency: List[Pattern] = field(default_factory=lambda: _compile(URGENCY))
 
 
 DEFAULT_PACK = SignalPack()
@@ -100,3 +102,22 @@ def any_match(text: str, patterns: List[Pattern]) -> bool:
 
 def count_matches(text: str, patterns: List[Pattern]) -> int:
     return sum(1 for p in patterns if p.search(text))
+
+
+HESITATION = [
+    r"\blet me think\b",
+    r"\bi'?m not sure\b",
+    r"\bmaybe\b",
+    r"\bI'?ll have to (?:check|look|ask)\b",
+    r"\bnot sure if\b",
+]
+
+URGENCY = [
+    r"\bas soon as possible\b",
+    r"\burgent\b",
+    r"\bemergency\b",
+    r"\bright away\b",
+    r"\bimmediately\b",
+    r"\btoday if possible\b",
+]
+
