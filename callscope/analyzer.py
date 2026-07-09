@@ -1,3 +1,4 @@
+# Callscope main analyzer module
 """Classify call outcome, detect events, and score conversation quality."""
 from __future__ import annotations
 
