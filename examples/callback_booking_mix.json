@@ -1,0 +1,21 @@
+{
+  "id": "call_mixed_001",
+  "messages": [
+    {
+      "role": "assistant",
+      "message": "Hi this is Leon with Core Dispatch, how's it going?"
+    },
+    {
+      "role": "user",
+      "message": "Hey Leon, I am a bit busy right now. Can you call me back at 3 PM? Also, how much does it cost?"
+    },
+    {
+      "role": "assistant",
+      "message": "Sure, it is 149 a month. I'll book that callback for 3 PM."
+    },
+    {
+      "role": "user",
+      "message": "Sounds perfect, let's book it."
+    }
+  ]
+}
