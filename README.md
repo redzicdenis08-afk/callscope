@@ -140,6 +140,10 @@ Benchmark docs live in [docs/BENCHMARK.md](docs/BENCHMARK.md), and the expansion
 - [x] Public benchmark runner
 - [ ] Configurable scoring weights via YAML
 
+## Troubleshooting
+
+See [docs/TROUBLESHOOTING.md](docs/TROUBLESHOOTING.md) for solutions to common issues.
+
 ## Contributing
 
 Issues and PRs are welcome. See [CONTRIBUTING.md](CONTRIBUTING.md). Run the tests with `pytest`, or with no dependencies at all via `python tests/test_callscope.py`.
